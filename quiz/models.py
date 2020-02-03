@@ -10,7 +10,7 @@ SUBJECTS = {
 class Quiz(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField() 
-    subject = models.ChoiceField(SUBJECTS)
+    subject = models.CharField(choices=SUBJECTS)
     score = models.IntegerField()
 
 class Question(models.Model):
