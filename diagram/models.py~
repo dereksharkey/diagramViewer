@@ -1,9 +1,0 @@
-from django.db import models
-
-class Diagram(models.Model):
-    name = models.CharField()
-    description = models.TextField()
-    layers = models.ForeignKey()
-
-class Layer(models.Model):
-    pass
