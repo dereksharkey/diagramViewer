@@ -3,18 +3,7 @@ from django.db import models
 class Diagram(models.Model):
     name = models.CharField()
     description = models.TextField()
+    diagram_type = models.CharField()
 
-class NetAdminDiagram(Diagram):
-    comp_name = models.CharField()
-
-class SysAdminDiagram(Diagram):
-    comp_name = models.CharField()
-
-class DSDiagram(Diagram):
-    comp_name = models.CharField()
-
-class AVTechDiagram(Diagram):
-    comp_name = models.CharField()
-
-class TrainingDiagram(Diagram):
-    comp_name = models.CharField()
+class Layer(models.Model):
+    diagram = models.ForeignKey(Diagram, on_delete=CASCADE)
