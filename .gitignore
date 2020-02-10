@@ -1,4 +1,5 @@
-# exclude temp-files and sqlite db
+# exclude temp-files and database objects
 *~
 db.sqlite3
 *.pyc
+migrations/

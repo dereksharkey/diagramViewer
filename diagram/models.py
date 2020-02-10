@@ -7,3 +7,5 @@ class Diagram(models.Model):
 
 class Layer(models.Model):
     diagram = models.ForeignKey(Diagram, on_delete=CASCADE)
+    layer_type = models.CharField()
+    image = models.FileField()
