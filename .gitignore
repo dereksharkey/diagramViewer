@@ -1,4 +1,4 @@
 # exclude temp-files and sqlite db
-*.*\~
+*~
 db.sqlite3
 *.pyc
