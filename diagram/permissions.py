@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-class TempPermission(permissions.BasePermissions):
+class TempPermission(permissions.BasePermission):
     """
     Custom permissions - testing
     """
