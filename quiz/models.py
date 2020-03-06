@@ -1,20 +1,22 @@
 from django.db import models
-
-SUBJECTS = {
-        'n': 'Network Administration',
-        's': 'Systems Administration',
-        'a': 'Audio Visual Technology',
-        'd': 'Desktop Support',
-}
+from django.utils.translation import gettext_lazy as _
 
 class Quiz(models.Model):
+
+    class Subject(models.TextChoices):
+        NETADMIN = 'NA', _('Network Administration')
+        SYSADMIN = 'SA', _('Systems Administration')
+        AV = 'AV', _('Audio Visual Technology')
+        DCS = 'DS', _('Desktop Support')
+        TRAIN = 'TR', _('Training')
+
     name = models.CharField(max_length=100)
-    description = models.TextField() 
-    subject = models.CharField(choices=SUBJECTS)
+    description = models.TextField()
+    subject = models.CharField(max_length=2, choices=Subject.choices)
     score = models.IntegerField()
 
 class Question(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length=100)
     quiz = models.ManyToManyField(Quiz)
 
 

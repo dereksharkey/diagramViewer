@@ -1,0 +1,31 @@
+from django.db import models
+
+class Diagram(models.Model):
+    NETADMIN = 'NA'
+    SYSADMIN = 'SA'
+    AV = 'AV'
+    DCS = 'DS'
+    TRAIN = 'TR'
+    DIAGRAM_CHOICES = [
+            (NETADMIN, 'Network Administration'),
+            (SYSADMIN, 'Systems Administration'),
+            (AV, 'Audio Visual Technology'),
+            (DCS, 'Desktop Support'),
+            (TRAIN, 'Training')
+    ]
+    name = models.CharField(max_length=100, blank=False)
+    description = models.TextField()
+    diagram_type = models.CharField(max_length=2, choices=DIAGRAM_CHOICES, default=TRAIN)
+
+class Layer(models.Model):
+    POWER = 'PW'
+    DATA = 'IO'
+    PHYS = 'PH'
+    LAYER_CHOICES = [
+        (POWER, 'Power'),
+        (DATA, 'Data'),
+        (PHYS, 'Physical')
+    ]
+    diagram = models.ForeignKey(Diagram, on_delete=models.CASCADE)
+    layer_type = models.CharField(max_length=2, choices=LAYER_CHOICES)
+    image = models.FileField()
