@@ -15,19 +15,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from rest_framework import routers
-from user import views
+from django.conf import settings
+from django.conf.urls.static import static
 
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+from rest_framework.routers import DefaultRouter
+
+from diagram.views import DiagramViewSet, LayerViewSet
+from manual.views import SymptomViewSet
+ 
+router = DefaultRouter()
+router.register(r'diagram', DiagramViewSet)
+router.register(r'layer', LayerViewSet)
+router.register(r'manual', SymptomViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration', include('rest_auth.registration.urls')),
-#   path('', include(router.urls)),
-#   path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-    path('', include('diagram.urls')),
-    path('', include('manual.urls')),
-]
+    path('', include(router.urls)),
+] + static(settings.MEDIA_URL, documents_root=settings.MEDIA_ROOT)
+
+#if settings.DEBUG:
+#    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

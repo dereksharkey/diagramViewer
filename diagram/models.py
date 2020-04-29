@@ -9,9 +9,10 @@ DIAGRAM_CHOICES = [
 ]
 
 LAYER_CHOICES = [
-        ('power', ''),
-        ('data', ''),
-        ('physical', '')
+        ('power', 'Power'),
+        ('data', 'Data'),
+        ('physical', 'Physical'),
+        ('other', 'Other')
 ]
 
 class Diagram(models.Model):
@@ -20,6 +21,9 @@ class Diagram(models.Model):
     diagram_type = models.CharField(max_length=10, choices=DIAGRAM_CHOICES)
 
 class Layer(models.Model):
+    def __str__(self):
+        return self.image.name
+    def directory_path(instance, filename):
+        return '{0}/{1}'.format(instance.diagram.name, filename)
     diagram = models.ForeignKey(Diagram, on_delete=models.CASCADE)
-    layer_type = models.CharField(max_length=100, choices=LAYER_CHOICES)
-    image = models.FileField()
+    image = models.ImageField(upload_to=directory_path, blank=True, null=True)

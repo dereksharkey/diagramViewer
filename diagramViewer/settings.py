@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ys!u%^!fzmd+a1-e6_-7p76xyn^656*2^^xim!so&sr&cm0_f4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'localhost', '0.0.0.0', '127.0.0.1', '192.168.0.121', '141.216.25.181']
 
 
 # Application definition
@@ -37,11 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
-    'django.contrib.sites',
     'allauth',
     'allauth.account',
     'rest_auth.registration',
@@ -88,12 +88,17 @@ WSGI_APPLICATION = 'diagramViewer.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'diagramviewer',
 	'USER': 'dviewer',
 	'PASSWORD': 'diagramviewer123',
 	'HOST': 'localhost',
 	'PORT': '',
+        'OPTIONS': {
+		'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+		'charset': 'utf8mb4',
+	}
+
     }
 }
 
@@ -135,6 +140,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/opt/diagramViewer/diagramViewer-backend/static/'
+STATIC_ROOT = 'static'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'media'
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+LOGIN_REDIRECT_URL = ''
